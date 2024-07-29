@@ -1,26 +1,24 @@
 ﻿@page
-@model CustomerView.Pages.IndexModel
+@model CustomerView.Pages.HomePageModel
 @{
     ViewData["Title"] = "Trang chủ";
 }
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/HomePage.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <link rel="icon" href="~/Picture_web/Icon_Diamond.jpg" type="image/jpeg" />
+    <link rel="icon" href="/Picture_web/Icon_Diamond.jpg" type="image/jpeg" />
 </head>
-<body>
-    @* Tạm thời ẩn Header *@
-    @* @await Html.PartialAsync("_Header") *@
 
+<body>
     <div class="container-xxl">
         <div class="slide-show">
             <div class="list-images">
@@ -49,7 +47,6 @@
             </div>
         </div>
     </div>
-
     <div class="pos1">
         <div class="title">
             <h2>
@@ -73,11 +70,9 @@
             <div class="summary">Diamond</div>
         </div>
         <div class="content-default">
-            Chúng tôi chỉ bán những Viên Kim Cương có độ tinh khiết hoàn hảo và nước
-            màu đẹp nhất
+            Chúng tôi chỉ bán những Viên Kim Cương có độ tinh khiết hoàn hảo và nước màu đẹp nhất
         </div>
     </div>
-
     <div class="pos2">
         <div class="feature">
             <img src="~/Picture_web/HomePage/pos2-1.jpg" alt="Dịch vụ VIP" />
@@ -101,33 +96,27 @@
             </p>
         </div>
     </div>
-
-    @* Tạm thời ẩn phần sản phẩm *@
-    @*
     <div class="pos3">
-    <h2>Sản Phẩm Mới Nhất</h2>
-    <div class="tab tab-2">
-    <div class="title">Nhẫn Kim cương</div>
-    <div class="carousel-inner">
-    @foreach (var product in Model.Products)
-    {
-    <div class="product">
-    <a href="@Url.Page("Product/Show", new { id = product.Id })" style="text-decoration: none; color: black">
-    <img src="~/Picture_Product/@product.Image" alt="Diamond Product" />
-    <strong>@product.ProductName @product.ProductCode</strong>
-    <p>@String.Format("{0:0,0}₫", product.TotalPrice)</p>
-    </a>
+        <h2>Sản Phẩm Mới Nhất</h2>
+        <div class="tab tab-2">
+            <div class="title">Nhẫn Kim cương</div>
+            <div class="carousel-inner">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="product">
+                        <a href="/product/show/@product.Id" style="text-decoration: none; color: black">
+                            <img src="~/Picture_Product/@product.Image" alt="Diamond Product" />
+                            <strong>@product.ProductName @product.ProductCode</strong>
+                            @* <p>@String.Format("{0:N0}", product.TotalPrice)₫</p> *@
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="carousel-controls">
+                <a href="/ListProduct"><button class="view-all">Xem Tất Cả</button></a>
+            </div>
+        </div>
     </div>
-    }
-    @endforeach
-    </div>
-    <div class="carousel-controls">
-    <a href="/ListProduct"><button class="view-all">Xem Tất Cả</button></a>
-    </div>
-    </div>
-    </div>
-    *@
-
     <div class="pos5">
         <div class="container">
             <div class="title-special">
@@ -150,7 +139,6 @@
             </div>
         </div>
     </div>
-
     <div class="pos6">
         <div class="container">
             <div class="block-newslist">
@@ -177,10 +165,7 @@
             </div>
         </div>
     </div>
-
-    @* Tạm thời ẩn Footer *@
-    
-
     <script src="~/js/HomePage.js"></script>
 </body>
+
 </html>

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\DatabaseCheck.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
@@ -16,6 +20,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\DatabaseCheck.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\DatabaseCheck.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\DatabaseCheck.cshtml" />
   </ItemGroup>
 
 </Project>

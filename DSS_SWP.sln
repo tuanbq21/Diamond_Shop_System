@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSS_SWP", "DSS_SWP\DSS_SWP.csproj", "{3E15CBFC-4E5D-476C-84D0-6178B78C4A5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSS_SWP", "DSS_SWP\DSS_SWP.csproj", "{3E15CBFC-4E5D-476C-84D0-6178B78C4A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{1412BAA7-AF5F-4542-BB1A-FED5089D10C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{1412BAA7-AF5F-4542-BB1A-FED5089D10C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerView", "CustomerView\CustomerView.csproj", "{BDEC2F0E-40B1-4F81-9CF7-DF978077ECCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerView", "CustomerView\CustomerView.csproj", "{BDEC2F0E-40B1-4F81-9CF7-DF978077ECCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

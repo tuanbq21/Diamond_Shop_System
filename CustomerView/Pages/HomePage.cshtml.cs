@@ -1,20 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using DSS_SWP.Models; // Thêm namespace để truy cập model
+using System.Collections.Generic;
 
 namespace CustomerView.Pages
 {
-    public class IndexModel : PageModel
+    public class HomePageModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+        public List<Product>? Products { get; set; }
 
         public void OnGet()
         {
+            // Logic để lấy sản phẩm từ cơ sở dữ liệu
+            Products = GetProductsFromDatabase(); // Giả sử bạn có một hàm để lấy sản phẩm
+        }
 
+        private List<Product> GetProductsFromDatabase()
+        {
+            // Kết nối DB và lấy danh sách sản phẩm
+            return new List<Product>(); // Trả về danh sách sản phẩm
         }
     }
 }

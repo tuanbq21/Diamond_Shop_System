@@ -34,8 +34,8 @@ namespace CustomerView
 
             app.MapFallbackToPage("/HomePage");
 
-
             app.Run();
         }
     }
+
 }
