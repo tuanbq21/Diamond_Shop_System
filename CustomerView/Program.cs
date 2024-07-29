@@ -1,3 +1,6 @@
+using DSS_SWP.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace CustomerView
 {
     public class Program
@@ -5,6 +8,7 @@ namespace CustomerView
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            
 
             // Add services to the container.
             builder.Services.AddRazorPages();
@@ -27,6 +31,9 @@ namespace CustomerView
             app.UseAuthorization();
 
             app.MapRazorPages();
+
+            app.MapFallbackToPage("/HomePage");
+
 
             app.Run();
         }

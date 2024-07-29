@@ -1,0 +1,165 @@
+﻿@page
+@model ProductListModel
+@{
+    ViewData["Title"] = "Danh Sách Sản Phẩm";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Nhẫn Kim Cương</title>
+    <link rel="stylesheet" href="~/css/ListProduct.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Các style của bạn */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mb-3 mt-3 justify-content-center">
+            <!-- Filters section -->
+            <div class="filter-group">
+                <label for="shape" class="form-label filter-label">Shape</label>
+                <div id="shape" class="d-flex">
+                    <!-- Repeat for other shapes -->
+                    <button class="btn btn-outline-secondary" data-value="Round" style="margin-right: 0.5rem;">
+                        <img src="/Picture_web/MaterialDiamond/Round.jpg" alt="Round">
+                    </button>
+                </div>
+            </div>
+            <!-- Repeat for other filters: carat, cut, color, clarity, etc. -->
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-md-3">
+                <select id="sort_by" class="form-select custom-select">
+                    <option value="price_asc">Price: Low to High</option>
+                    <option value="price_desc">Price: High to Low</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="price_range" class="form-select custom-select">
+                    <option value="">Select Price Range</option>
+                    <option value="0-15000000">0₫–15.000.000₫</option>
+                    <option value="15000000-30000000">15.000.000₫–30.000.000₫</option>
+                    <option value="30000000-45000000">30.000.000₫–45.000.000₫</option>
+                    <option value="45000000">45.000.000₫+</option>
+                </select>
+            </div>
+            <!-- Repeat for other filters: type, material, etc. -->
+        </div>
+        <div id="product-list" class="shell-grid mt-3 mb-3">
+            @foreach (var product in Model.Products)
+            {
+                <a class="link" href="@Url.Page("ProductDetail", new { id = product.Id })">
+                    <div class="col">
+                        <div class="card h-70 clickable">
+                            <img src="@Url.Content("~/Picture_Product/" + product.Image)" alt="ring" class="card-img-top">
+                            <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                                <p class="card-text text-center">@product.ProductName @product.ProductCode</p>
+                                <h6 class="card-title text-center">@product.TotalPrice.ToString("N0")₫</h6>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let selectedShape = '';
+
+        const updateProductList = (products) => {
+            if (!Array.isArray(products)) {
+                console.error("Expected an array but got:", products);
+                return;
+            }
+
+            let productHtml = '';
+            products.forEach(product => {
+                productHtml += `
+                            <a class="link" href="/Product/${product.id}">
+                                <div class="col">
+                                    <div class="card h-70 clickable">
+                                        <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
+                                        <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                                            <p class="card-text text-center">${product.product_name} ${product.product_code}</p>
+                                            <h6 class="card-title text-center">
+                                                ${new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(product.total_price)}₫
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>`;
+            });
+            document.getElementById('product-list').innerHTML = productHtml;
+        }
+
+        const updateURLParams = () => {
+            const priceRange = document.getElementById('price_range').value;
+            const sortBy = document.getElementById('sort_by').value;
+            const productType = document.getElementById('type').value;
+            const shape = selectedShape;
+            const carat = document.getElementById('carat').value;
+            const cut = document.getElementById('cut').value;
+            const color = document.getElementById('color').value;
+            const clarity = document.getElementById('clarity').value;
+            const material = document.getElementById('material').value;
+
+            const filters = {
+                sort: sortBy,
+                price_range: priceRange,
+                product_name: productType,
+                material: material,
+                shape: shape,
+                carat: carat,
+                cut: cut,
+                color: color,
+                clarity: clarity
+            };
+
+            $.ajax({
+                url: '/filter-products',
+                data: filters,
+                success: (response) => {
+                    console.log("AJAX response:", response);
+                    updateProductList(response);
+                },
+                error: (error) => {
+                    console.error("AJAX error:", error);
+                }
+            });
+        }
+
+        document.getElementById('price_range').addEventListener('change', updateURLParams);
+        document.getElementById('sort_by').addEventListener('change', updateURLParams);
+        document.getElementById('type').addEventListener('change', updateURLParams);
+        document.getElementById('material').addEventListener('change', updateURLParams);
+
+        const shapeButtons = document.querySelectorAll('#shape button');
+        shapeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const currentValue = this.getAttribute('data-value');
+                if (currentValue === selectedShape) {
+                    selectedShape = '';
+                    this.classList.remove('active');
+                } else {
+                    selectedShape = currentValue;
+                    shapeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                }
+                updateURLParams();
+            });
+        });
+
+        document.getElementById('carat').addEventListener('change', updateURLParams);
+        document.getElementById('cut').addEventListener('change', updateURLParams);
+        document.getElementById('color').addEventListener('change', updateURLParams);
+        document.getElementById('clarity').addEventListener('change', updateURLParams);
+
+        updateURLParams();
+    </script>
+</body>
+</html>
