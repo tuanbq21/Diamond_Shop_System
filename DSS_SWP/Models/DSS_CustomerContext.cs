@@ -8,16 +8,15 @@ namespace DSS_SWP.Models;
 
 public partial class DSS_CustomerContext : DbContext
 {
-
-    public DSS_CustomerContext()
-    {
-        
-    }
     public DSS_CustomerContext(DbContextOptions<DSS_CustomerContext> options)
         : base(options)
     {
     }
 
+    public DSS_CustomerContext()
+    {
+        
+    }
     public virtual DbSet<CertificateMainDiamond> CertificateMainDiamonds { get; set; }
 
     public virtual DbSet<DiamondPriceList> DiamondPriceLists { get; set; }
@@ -291,7 +290,6 @@ public partial class DSS_CustomerContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("date_time");
-            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PaymentMethod)
                 .IsRequired()
                 .HasMaxLength(255)

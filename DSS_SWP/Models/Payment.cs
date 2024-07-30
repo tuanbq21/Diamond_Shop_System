@@ -11,8 +11,6 @@ public partial class Payment
 
     public string PaymentMethod { get; set; }
 
-    public long OrderId { get; set; }
-
     public string DateTime { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
