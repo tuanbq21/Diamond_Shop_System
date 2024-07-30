@@ -15,5 +15,5 @@ public partial class Payment
 
     public string DateTime { get; set; }
 
-    public virtual Order Order { get; set; }
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

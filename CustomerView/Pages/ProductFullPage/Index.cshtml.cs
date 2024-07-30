@@ -8,22 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using DSS_SWP.Models;
 using Service.Services;
 
-namespace CustomerView.Pages.OrderPage
+namespace CustomerView.Pages.ProductFullPage
 {
     public class IndexModel : PageModel
     {
-        private readonly OrderService _context;
+        private ProductService _context;
 
-        public IndexModel(OrderService context)
+        public IndexModel(ProductService context)
         {
             _context = context;
         }
 
-        public IList<Order> Order { get;set; } = default!;
+        public IList<Product> Product { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Order = await _context.GetList();
+            Product = await _context.GetList();
         }
     }
 }

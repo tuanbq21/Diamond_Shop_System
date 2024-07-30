@@ -8,13 +8,14 @@ namespace DSS_SWP.Models;
 
 public partial class DSS_CustomerContext : DbContext
 {
-    public DSS_CustomerContext(DbContextOptions<DSS_CustomerContext> options)
-        : base(options)
-    {
-    }
+
     public DSS_CustomerContext()
     {
         
+    }
+    public DSS_CustomerContext(DbContextOptions<DSS_CustomerContext> options)
+        : base(options)
+    {
     }
 
     public virtual DbSet<CertificateMainDiamond> CertificateMainDiamonds { get; set; }
@@ -40,11 +41,13 @@ public partial class DSS_CustomerContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<WarrantyCertificate> WarrantyCertificates { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("data source=DESKTOP-E2A2I0N\\SQLEXPRESS;initial catalog=DSS_Customer;user id=sa;password=123456;Integrated Security=True;TrustServerCertificate=True");
         base.OnConfiguring(optionsBuilder);
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CertificateMainDiamond>(entity =>
@@ -241,6 +244,7 @@ public partial class DSS_CustomerContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("order_date");
+            entity.Property(e => e.PaymentId).HasColumnName("paymentId");
             entity.Property(e => e.Phone)
                 .IsRequired()
                 .HasMaxLength(10)
@@ -248,6 +252,10 @@ public partial class DSS_CustomerContext : DbContext
                 .HasColumnName("phone");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
+
+            entity.HasOne(d => d.Payment).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.PaymentId)
+                .HasConstraintName("FK_Order_Payment");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
@@ -288,11 +296,6 @@ public partial class DSS_CustomerContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .HasColumnName("payment_method");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.Payments)
-                .HasForeignKey(d => d.OrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("payment_order_id_foreign");
         });
 
         modelBuilder.Entity<Product>(entity =>

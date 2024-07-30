@@ -6,24 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DSS_SWP.Models;
-using Service.Services;
 
-namespace CustomerView.Pages.OrderPage
+namespace CustomerView.Pages.ExtraDiamondPage
 {
     public class IndexModel : PageModel
     {
-        private readonly OrderService _context;
+        private readonly DSS_SWP.Models.DSS_CustomerContext _context;
 
-        public IndexModel(OrderService context)
+        public IndexModel(DSS_SWP.Models.DSS_CustomerContext context)
         {
             _context = context;
         }
 
-        public IList<Order> Order { get;set; } = default!;
+        public IList<ExtraDiamond> ExtraDiamond { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Order = await _context.GetList();
+            ExtraDiamond = await _context.ExtraDiamonds.ToListAsync();
         }
     }
 }

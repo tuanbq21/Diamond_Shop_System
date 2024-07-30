@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DSS_SWP.Repositories
 {
-    public class UserRepo : BaseDAO<User>
+    public class MainDiamondRepo :BaseDAO<MainDiamond>
     {
-        public UserRepo()
+        public MainDiamondRepo()
         {
             
         }

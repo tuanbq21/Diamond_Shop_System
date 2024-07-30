@@ -1,3 +1,5 @@
+using Service.Services;
+
 namespace CustomerView
 {
     public class Program
@@ -8,6 +10,14 @@ namespace CustomerView
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            //Add Session
+            builder.Services.AddSession();
+
+            //DI - Dependency Injection
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<OrderDetailService>();
+            builder.Services.AddScoped<OrderService>();
 
             var app = builder.Build();
 
