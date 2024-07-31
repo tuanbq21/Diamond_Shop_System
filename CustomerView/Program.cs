@@ -39,9 +39,6 @@ namespace CustomerView
             app.MapFallbackToPage("/HomePage");
 
             app.MapRazorPages();
-
-            app.MapFallbackToPage("/HomePage");
-
             app.Run();
         }
     }

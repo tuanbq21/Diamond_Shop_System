@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using DSS_SWP.Models; // Thêm namespace để truy cập model
 using System.Collections.Generic;
-using DSS_SWP.Models;
 using Service.Services;
 using System.Threading.Tasks;
 
