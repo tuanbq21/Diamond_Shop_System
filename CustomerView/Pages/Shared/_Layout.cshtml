@@ -94,13 +94,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Payment">Thanh toán</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Login">Đăng nhập</a>
-                    </li>
+
+                    @* Kiểm tra nếu người dùng đã đăng nhập *@
+                    @if (Context.Session.GetString("UserId") == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Login">Đăng nhập</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="confirmLogout()">Đăng xuất</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </nav>
     </header>
+
     <div>
         <main role="main" class="pb-3">
             @RenderBody()
@@ -178,7 +190,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script>
+        function confirmLogout() {
+            if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+                
+                window.location.href = '/Logout'; 
+            }
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

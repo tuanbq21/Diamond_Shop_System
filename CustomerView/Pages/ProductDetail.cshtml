@@ -76,7 +76,17 @@
             </tr>
             <tr>
                 <td>Kim loại</td>
-                <td>@Model.Product.MainDiamond.Origin</td>
+                    <td>
+                        @{
+                            foreach (var material in Model.Materials)
+                            {
+                                if (Model.Product.DiamondShell.MaterialId == material.Id)
+                                {
+                                    @material.MaterialName
+                                }
+                            }
+                        }
+                    </td>
             </tr>
         </table>
 

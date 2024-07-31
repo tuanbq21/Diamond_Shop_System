@@ -32,18 +32,18 @@ namespace CustomerView.Pages
             });
         }
 
-    public async Task<IActionResult> OnPost()
-        {
-            try { 
-                long customerId = long.Parse(HttpContext.Session.GetString("UserId"));
+    //public async Task<IActionResult> OnPost()
+    //    {
+    //        try { 
+    //            long customerId = long.Parse(HttpContext.Session.GetString("UserId"));
                 
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = ex.Message;
-                return Page();
-            }
-        }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            TempData["Message"] = ex.Message;
+    //            return Page();
+    //        }
+    //    }
     }
 
     public class ProductViewModel

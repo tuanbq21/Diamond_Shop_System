@@ -173,9 +173,9 @@
                                 @foreach (var item in Model.Products)
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <img src="@item.Image" alt="@item.ProductName" width="50">
-                                            <strong>@item.ProductName @item.ProductCode</strong>
+                                        <div class="row">
+                                            <div class="col-md-3"><img src="@item.Image" alt="@item.ProductName" width="50"></div>
+                                            <div class="col-md-9"><strong>@item.ProductName @item.ProductCode</strong></div>
                                         </div>
                                         <span>@string.Format("{0:n0}", item.TotalPrice) ₫</span>
                                     </li>
