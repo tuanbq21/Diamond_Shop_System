@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/DetailProduct.css">
 </head>
 <body>
-    @* Include Header Here *@
+ 
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-7">
@@ -25,36 +25,21 @@
                 <h5>Chất Liệu: @Model.Product.MainDiamond.Origin</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
-                    <form id="add-to-cart-form" method="post">
+                    <form id="add-to-cart-form" method="get" action="/payment">
                         <div class="d-flex align-items-center justify-content-center mb-3">
                             <input type="number" name="ringsize" id="ringSizeInput" min="4" max="9" step="0.25" value="4" class="form-control me-2" style="width: 80px;">
                         </div>
                         <input type="hidden" name="name" value="@Model.Product.ProductName">
                         <input type="hidden" name="total_price" value="@Model.Product.TotalPrice">
-                        <input type="hidden" name="image" value="/Picture_Product/@Model.Product.Image">
+                        <input type="hidden" name="image" value="/images/Picture_Product/@Model.Product.Image">
                         <input type="hidden" name="product_code" value="@Model.Product.ProductCode">
-                        <input type="hidden" id="product-quantity" value="1">
-                        @* <div>
-                            <button type="button" id="add-to-cart-button" class="btn btn-orange">Thêm vào giỏ hàng</button>
-                        </div> *@
+                        <input type="hidden" name="quantity" value="1">
                         <div class="d-flex justify-content-center mt-2">
-                            <button type="button" id="buy-now-button" class="btn btn-orange">Mua ngay</button>
+                            <button type="submit" id="buy-now-button" class="btn btn-orange">Mua ngay</button>
                         </div>
                     </form>
                     <div id="add-to-cart-message" class="text-success mt-2" style="display: none;">Sản phẩm đã được thêm vào giỏ hàng!</div>
                 </div>
-                <strong>
-                    <p id="delivery-date" class="text-center mt-3"></p>
-                </strong>
-                <div class="extend">
-                    <i class="fa-sharp fa-solid fa-dollar-sign fa-2xl"></i>
-                    <div> Đảm bảo giá cả tốt nhất</div>
-                    <i class="fa-regular fa-heart fa-2xl"></i>
-                    <div> Bảo hành trọn đời</div>
-                    <i class="fa-solid fa-rotate-left fa-2xl"></i>
-                    <div> Trả hàng trong vòng 30 ngày</div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -110,7 +95,6 @@
         </table>
     </div>
 
-    @* Include Footer Here *@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -140,10 +124,10 @@
                     return;
                 }
 
-                if (!isLoggedIn()) {
-                    alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
-                    return;
-                }
+                // if (!isLoggedIn()) {
+                //     alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
+                //     return;
+                // }
 
                 $.ajax({
                     url: '@Url.Action("AddToCart", "Cart")',
@@ -174,9 +158,9 @@
             });
         });
 
-        function isLoggedIn() {
-            return '@User.Identity.IsAuthenticated';
-        }
+        // function isLoggedIn() {
+        //     return '@User.Identity.IsAuthenticated';
+        // }
     </script>
 </body>
 </html>
