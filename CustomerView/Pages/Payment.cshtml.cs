@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSS_SWP.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Service.Services;
 using System.Collections.Generic;
 
 namespace CustomerView.Pages
@@ -8,29 +10,21 @@ namespace CustomerView.Pages
     {
         public List<ProductViewModel> Products { get; set; } = new List<ProductViewModel>();
 
-        // Thông tin thanh toán
-        [BindProperty]
-        public string Email { get; set; }
-        [BindProperty]
-        public string Name { get; set; }
-        [BindProperty]
-        public string AddressLine1 { get; set; }
-        [BindProperty]
-        public string AddressLine2 { get; set; }
-        [BindProperty]
-        public string AddressLine3 { get; set; }
-        [BindProperty]
-        public string Phone { get; set; }
-        [BindProperty]
-        public string ShippingMethod { get; set; }
-        [BindProperty]
-        public string PaymentMethod { get; set; }
+        private readonly OrderService orderService = new OrderService();
 
-        public void OnGet(string name, string product_code, int total_price, string image)
+        private readonly OrderDetailService orderDetailService = new OrderDetailService();
+
+        [BindProperty]
+        public Order Order { get; set; } = new Order()!;
+
+        [BindProperty]
+        public OrderDetail OrderDetail { get; set; } = new OrderDetail()!;
+        public void OnGet(long Id, string name, string product_code, int total_price, string image)
         {
             // Nhận thông tin sản phẩm từ URL
             Products.Add(new ProductViewModel
             {
+                Id = Id,
                 ProductName = name,
                 ProductCode = product_code,
                 TotalPrice = total_price,
@@ -38,26 +32,23 @@ namespace CustomerView.Pages
             });
         }
 
-        public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
         {
-            // Xử lý dữ liệu thanh toán
-            // Bạn có thể lưu đơn hàng vào cơ sở dữ liệu hoặc thực hiện các bước cần thiết khác
-
-            // Ví dụ: Ghi lại thông tin thanh toán vào log (hoặc lưu vào cơ sở dữ liệu)
-            System.Diagnostics.Debug.WriteLine($"Email: {Email}");
-            System.Diagnostics.Debug.WriteLine($"Name: {Name}");
-            System.Diagnostics.Debug.WriteLine($"Address: {AddressLine1}, {AddressLine2}, {AddressLine3}");
-            System.Diagnostics.Debug.WriteLine($"Phone: {Phone}");
-            System.Diagnostics.Debug.WriteLine($"Shipping Method: {ShippingMethod}");
-            System.Diagnostics.Debug.WriteLine($"Payment Method: {PaymentMethod}");
-
-            // Chuyển hướng đến trang xác nhận hoặc trang khác
-            return RedirectToPage("OrderConfirmation");
+            try { 
+                long customerId = long.Parse(HttpContext.Session.GetString("UserId"));
+                
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = ex.Message;
+                return Page();
+            }
         }
     }
 
     public class ProductViewModel
     {
+        public long Id { get; set; }
         public string ProductName { get; set; }
         public string ProductCode { get; set; }
         public int TotalPrice { get; set; }
