@@ -69,7 +69,6 @@
     </style>
 </head>
 <body>
-    
 
     <div class="container">
         <div class="row mb-3 mt-3 justify-content-center">
@@ -79,7 +78,7 @@
                 <div id="shape" class="d-flex">
                     @foreach (var shape in Model.Shapes)
                     {
-                        <button class="btn btn-outline-secondary" data-value="@shape" style="margin-right: 0.5rem;">
+                        <button class="btn btn-outline-secondary shape-button" data-value="@shape" style="margin-right: 0.5rem;">
                             <img src="~/images/Picture_web/MaterialDiamond/@($"{shape}.jpg")" alt="@shape">
                         </button>
                     }
@@ -181,11 +180,17 @@
         </div>
     </div>
 
-    
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let selectedShape = '';
+        let selectedCarat = '';
+        let selectedCut = '';
+        let selectedColor = '';
+        let selectedClarity = '';
+        let selectedSortBy = '';
+        let selectedPriceRange = '';
+        let selectedType = '';
+        let selectedMaterial = '';
 
         const updateProductList = (products) => {
             if (!Array.isArray(products)) {
@@ -196,33 +201,62 @@
             let productHtml = '';
             products.forEach(product => {
                 productHtml += `
-                        <a class="link" href="/Product/${product.id}">
-                            <div class="card h-70 clickable">
-                                <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
-                                <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
-                                    <p class="card-text text-center">${product.productName} ${product.productCode}</p>
-                                    <h6 class="card-title text-center">${new Intl.NumberFormat().format(product.totalPrice)}₫</h6>
-                                </div>
-                            </div>
-                        </a>`;
+                                        <a class="link col-md-3" href="/Product/${product.id}">
+                                            <div class="card h-70 clickable">
+                                                <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
+                                                <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                                                    <p class="card-text text-center">${product.productName} ${product.productCode}</p>
+                                                    <h6 class="card-title text-center">${product.totalPrice}₫</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    `;
             });
-
             $('#product-list').html(productHtml);
         };
 
-        $(document).ready(function () {
-            $(".btn-outline-secondary").click(function (e) {
-                e.preventDefault();
-                const value = $(this).data('value');
-                selectedShape = (selectedShape === value) ? '' : value;
+        const filterProducts = () => {
+            const carat = $('#carat').val();
+            const cut = $('#cut').val();
+            const color = $('#color').val();
+            const clarity = $('#clarity').val();
+            const sortBy = $('#sort_by').val();
+            const priceRange = $('#price_range').val();
+            const type = $('#type').val();
+            const material = $('#material').val();
 
-                // Add filtering logic here
+            $.ajax({
+                type: 'GET',
+                url: '/Product/Filter', // Đường dẫn đến phương thức xử lý lọc
+                data: {
+                    shape: selectedShape,
+                    carat: carat,
+                    cut: cut,
+                    color: color,
+                    clarity: clarity,
+                    sort_by: sortBy,
+                    price_range: priceRange,
+                    type: type,
+                    material: material
+                },
+                success: function (data) {
+                    console.log(data); // Kiểm tra dữ liệu trả về
+                    updateProductList(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error while filtering products:", error);
+                }
             });
+        };
 
-            $('#carat, #cut, #color, #clarity, #sort_by, #price_range, #type, #material').change(function () {
-                // Add filtering logic here
-            });
+        $(".shape-button").click(function (e) {
+            e.preventDefault();
+            const value = $(this).data('value');
+            selectedShape = (selectedShape === value) ? '' : value;
+            filterProducts();
         });
+
+        $("#carat, #cut, #color, #clarity, #sort_by, #price_range, #type, #material").change(filterProducts);
     </script>
 </body>
 </html>

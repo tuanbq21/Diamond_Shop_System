@@ -104,7 +104,7 @@
                 @foreach (var product in Model.Products)
                 {
                     <div class="product">
-                        <a href="/product/show/@product.Id" style="text-decoration: none; color: black">
+                        <a href="/product/@product.Id" style="text-decoration: none; color: black">
                             <img src="~/images/Picture_Product/@product.Image" alt="Diamond Product" />
                             <strong>@product.ProductName @product.ProductCode</strong>
                             <p>@string.Format("{0:n0}", product.TotalPrice) ₫</p>
