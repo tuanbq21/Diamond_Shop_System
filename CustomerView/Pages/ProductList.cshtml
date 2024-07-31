@@ -66,6 +66,11 @@
         .filter-label {
             font-weight: bold;
         }
+
+        .row *{
+            width: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -129,14 +134,14 @@
         </div>
 
         <div class="row mt-3 mb-3">
-            <div class="col-md-3">
-                <select id="sort_by" class="form-select custom-select">
+            <div class="col-md-3" style="padding-left: 2%;">
+                <select id="sort_by" class="form-select custom-select" style="width:100%;">
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                 </select>
-            </div>
-            <div class="col-md-3">
-                <select id="price_range" class="form-select custom-select">
+            </div> 
+            <div class="col-md-3" style="padding-right: 2.5%;">
+                <select id="price_range" class="form-select custom-select" style="width:100%;">
                     <option value="">Select Price Range</option>
                     <option value="0-15000000">0₫–15.000.000₫</option>
                     <option value="15000000-30000000">15.000.000₫–30.000.000₫</option>
@@ -144,15 +149,15 @@
                     <option value="45000000">45.000.000₫+</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <select id="type" class="form-select custom-select">
+            <div class="col-md-3" style="padding-right: 3.5%; padding-left: 0;">
+                <select id="type" class="form-select custom-select" style="width:100%;">
                     <option value="">Select Type</option>
                     <option value="Nhẫn Kim Cương Nam">Nhẫn Kim Cương Nam</option>
                     <option value="Nhẫn Kim Cương Nữ">Nhẫn Kim Cương Nữ</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <select id="material" class="form-select custom-select">
+            <div class="col-md-3" style="padding-left: 0; padding-right: 4.5%;">
+                <select id="material" class="form-select custom-select" style="width:100%;">
                     <option value="">Select Material</option>
                     <option value="Vàng Trắng 14K">Vàng Trắng 14K</option>
                     <option value="Vàng 14K">Vàng 14K</option>
@@ -162,7 +167,7 @@
             </div>
         </div>
 
-        <div id="product-list" class="shell-grid mt-3 mb-3 row">
+        <div id="product-list" class="shell-grid mt-3 mb-3 row col-md-3">
             @foreach (var product in Model.Products)
             {
                 <a class="link" href="/Product/@product.Id">
