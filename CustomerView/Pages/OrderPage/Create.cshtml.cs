@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DSS_SWP.Models;
+using Service.Services;
 
 namespace CustomerView.Pages.OrderPage
 {
     public class CreateModel : PageModel
     {
-        private readonly DSS_SWP.Models.DSS_CustomerContext _context;
+        private readonly OrderService _context;
 
-        public CreateModel(DSS_SWP.Models.DSS_CustomerContext context)
+        public CreateModel(OrderService context)
         {
             _context = context;
         }
@@ -34,8 +35,8 @@ namespace CustomerView.Pages.OrderPage
                 return Page();
             }
 
-            _context.Orders.Add(Order);
-            await _context.SaveChangesAsync();
+            _context.Add(Order);
+            _context.Save();
 
             return RedirectToPage("./Index");
         }

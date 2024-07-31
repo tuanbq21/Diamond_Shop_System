@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DSS_SWP.Models;
+using Service.Services;
 
 namespace CustomerView.Pages.ProductPage
 {
     public class IndexModel : PageModel
     {
-        private readonly DSS_SWP.Models.DSS_CustomerContext _context;
+        private ProductService _context;
 
-        public IndexModel(DSS_SWP.Models.DSS_CustomerContext context)
+        public IndexModel( ProductService context)
         {
             _context = context;
         }
@@ -22,10 +23,7 @@ namespace CustomerView.Pages.ProductPage
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Products
-                .Include(p => p.DiamondShell)
-                .Include(p => p.ExtraDiamond)
-                .Include(p => p.MainDiamond).ToListAsync();
+            Product = await _context.GetList();
         }
     }
 }
