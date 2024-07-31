@@ -22,7 +22,20 @@
             <div class="col-sm-5 text-center">
                 <h3>@Model.Product.ProductName @Model.Product.ProductCode</h3>
                 <h4>Giá: @Model.Product.TotalPrice.ToString("N0")₫</h4>
-                <h5>Chất Liệu: @Model.Product.MainDiamond.Origin</h5>
+                <h5>
+                    Chất Liệu:
+                    @{
+                        foreach (var material in Model.Materials)
+                        {
+                            if (Model.Product.DiamondShell.MaterialId == material.Id)
+                            {
+                                @material.MaterialName
+                            }
+                        }
+                    }
+                </h5>
+
+
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
                     <form id="add-to-cart-form" method="get" action="/payment">
@@ -169,9 +182,7 @@
             });
         });
 
-        // function isLoggedIn() {
-        //     return '@User.Identity.IsAuthenticated';
-        // }
+       
     </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-using Service.Services;
+﻿using Service.Services;
+using DSS_SWP.Repositories;
 
 namespace CustomerView
 {
@@ -7,18 +8,19 @@ namespace CustomerView
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
 
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            //Add Session
+            // Add Session
             builder.Services.AddSession();
 
-            //DI - Dependency Injection
+            // DI - Dependency Injection
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<OrderDetailService>();
             builder.Services.AddScoped<OrderService>();
+            builder.Services.AddScoped<MaterialService>();
+            builder.Services.AddScoped<MaterialRepo>(); // Đăng ký MaterialRepo ở đây
 
             var app = builder.Build();
 
@@ -43,5 +45,4 @@ namespace CustomerView
             app.Run();
         }
     }
-
 }
