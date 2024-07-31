@@ -6,30 +6,53 @@ namespace CustomerView.Pages
 {
     public class PaymentModel : PageModel
     {
-        public List<ProductViewModel> Products { get; set; }
+        public List<ProductViewModel> Products { get; set; } = new List<ProductViewModel>();
 
-        public void OnGet()
+        // Thông tin thanh toán
+        [BindProperty]
+        public string Email { get; set; }
+        [BindProperty]
+        public string Name { get; set; }
+        [BindProperty]
+        public string AddressLine1 { get; set; }
+        [BindProperty]
+        public string AddressLine2 { get; set; }
+        [BindProperty]
+        public string AddressLine3 { get; set; }
+        [BindProperty]
+        public string Phone { get; set; }
+        [BindProperty]
+        public string ShippingMethod { get; set; }
+        [BindProperty]
+        public string PaymentMethod { get; set; }
+
+        public void OnGet(string name, string product_code, int total_price, string image)
         {
-            Products = GetProductsFromCart();
+            // Nhận thông tin sản phẩm từ URL
+            Products.Add(new ProductViewModel
+            {
+                ProductName = name,
+                ProductCode = product_code,
+                TotalPrice = total_price,
+                Image = image
+            });
         }
 
-        public IActionResult OnPost(string email, string name, string address_line1, string address_line2, string address_line3, string phone, string shippingMethod, string paymentMethod)
+        public IActionResult OnPost()
         {
             // Xử lý dữ liệu thanh toán
-            // TODO: Lưu đơn hàng vào cơ sở dữ liệu hoặc thực hiện các bước cần thiết khác
+            // Bạn có thể lưu đơn hàng vào cơ sở dữ liệu hoặc thực hiện các bước cần thiết khác
+
+            // Ví dụ: Ghi lại thông tin thanh toán vào log (hoặc lưu vào cơ sở dữ liệu)
+            System.Diagnostics.Debug.WriteLine($"Email: {Email}");
+            System.Diagnostics.Debug.WriteLine($"Name: {Name}");
+            System.Diagnostics.Debug.WriteLine($"Address: {AddressLine1}, {AddressLine2}, {AddressLine3}");
+            System.Diagnostics.Debug.WriteLine($"Phone: {Phone}");
+            System.Diagnostics.Debug.WriteLine($"Shipping Method: {ShippingMethod}");
+            System.Diagnostics.Debug.WriteLine($"Payment Method: {PaymentMethod}");
 
             // Chuyển hướng đến trang xác nhận hoặc trang khác
             return RedirectToPage("OrderConfirmation");
-        }
-
-        private List<ProductViewModel> GetProductsFromCart()
-        {
-            // TODO: Lấy danh sách sản phẩm từ giỏ hàng
-            return new List<ProductViewModel>
-            {
-                new ProductViewModel { ProductName = "Sản phẩm 1", ProductCode = "SP001", TotalPrice = 1000000, Image = "/images/product1.jpg" },
-                new ProductViewModel { ProductName = "Sản phẩm 2", ProductCode = "SP002", TotalPrice = 2000000, Image = "/images/product2.jpg" }
-            };
         }
     }
 
