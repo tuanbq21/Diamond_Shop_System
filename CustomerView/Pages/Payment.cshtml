@@ -94,6 +94,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="full_address" name="full_address">
                             <button type="button" class="btn btn-orange" onclick="combineAddressAndNextStep()">Thanh toán</button>
                         </div>
 
@@ -117,11 +118,11 @@
                             </div>
                             <div id="paypal-info" class="payment-info" style="display: none; margin-bottom: 1rem">
                                 <h4>Thông tin thanh toán qua PayPal</h4>
-                                <img src="/Picture_web/Payment/QRpaypal.jpg" alt="PayPal QR" width="500" height="500">
+                                <img src="/images/Picture_web/Payment/QRpaypal.jpg" alt="PayPal QR" width="500" height="500">
                             </div>
                             <div id="bank-info" class="payment-info" style="display: none; margin-bottom: 1rem">
                                 <h4>Thông tin chuyển khoản ngân hàng</h4>
-                                <img src="/Picture_web/Payment/QRVCB.jpg" alt="Bank QR" width="500" height="700">
+                                <img src="/images/Picture_web/Payment/QRVCB.jpg" alt="Bank QR" width="500" height="700">
                             </div>
                             <button type="button" class="btn btn-orange" onclick="prevStep(1)">Quay lại</button>
                             <button type="button" class="btn btn-orange" onclick="nextStep(3)">Tiếp tục</button>
