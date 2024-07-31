@@ -1,5 +1,6 @@
 ﻿using DSS_SWP.Models;
 using DSS_SWP.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,10 @@ namespace Service.Services
             return _repo.GetOrderById(id);
         }
 
-
+        public long GetLength()
+        {
+            return _repo.GetLength();
+        }
         public async void Add(Order order)
         {
             await _repo.CreateAsync(order);

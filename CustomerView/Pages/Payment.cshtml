@@ -50,14 +50,14 @@
                             <h4 class="mb3">Thông tin khách hàng</h4>
                             <div class="form-group">
                                 <label for="email">Địa chỉ email</label>
-                                <input type="email" class="form-control" asp-for="Order.Email" required>
+                                <input type="email" class="form-control" id="email" asp-for="Order.Email" required>
                                 <div class="invalid-feedback">
                                     Vui lòng nhập địa chỉ email hợp lệ.
                                 </div>
                             </div>
                             <div class="form-row mb-2">
                                 <label for="name">Họ và Tên</label>
-                                <input type="text" class="form-control" asp-for="Order.Name" required>
+                                <input type="text" class="form-control" id="name" asp-for="Order.Name" required>
                                 <div class="invalid-feedback">
                                     Vui lòng nhập họ và tên.
                                 </div>
@@ -88,13 +88,13 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone">Số điện thoại</label>
-                                    <input type="text" class="form-control" asp-for="Order.Phone" required>
+                                    <input type="text" class="form-control" id="phone" asp-for="Order.Phone" required>
                                     <div class="invalid-feedback">
                                         Vui lòng nhập số điện thoại.
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" asp-for="Order.Address">
+                            <input type="hidden" id="full_address" asp-for="Order.Address">
                             <button type="button" class="btn btn-orange" onclick="combineAddressAndNextStep()">Thanh toán</button>
                         </div>
 
@@ -149,6 +149,7 @@
                                         </tr>
                                         <input type="hidden" asp-for="OrderDetail.ProductId" value="@item.Id"/>
                                         <input type="hidden" asp-for="OrderDetail.UnitPrice" value="@item.TotalPrice"/>
+                                        <input type="hidden" asp-for="Order.TotalPrice" value="@totalPrice" />
                                     }
                                 </tbody>
                                 <tfoot>

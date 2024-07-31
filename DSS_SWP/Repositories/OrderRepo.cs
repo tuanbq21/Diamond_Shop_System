@@ -23,6 +23,11 @@ namespace DSS_SWP.Repositories
                                  .ToListAsync();
         }
 
+        public long GetLength()
+        {
+            return _context.Orders
+                                 .Count();
+        }
 
         public Order? GetOrderById(long id)
         {

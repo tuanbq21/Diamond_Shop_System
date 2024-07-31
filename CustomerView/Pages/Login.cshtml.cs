@@ -26,12 +26,12 @@ namespace CustomerView.Pages
                 {
                     TempData["Message"] = "Login Success";
                     Console.WriteLine("Login Success");
-
+                    HttpContext.Session.SetString("UserId", account.Id.ToString());
                     return RedirectToPage("/HomePage");
                 }
                 else
                 {
-                    HttpContext.Session.SetString("UserId", account.Id.ToString());
+                    
                     TempData["Message"] = "Tài khoảng hoặc mật khẩu bị sai. Vui lòng nhập lại!";
                     return Page();
                 }
