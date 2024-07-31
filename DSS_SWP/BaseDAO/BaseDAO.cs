@@ -103,7 +103,13 @@ namespace DSS_SWP.BaseDAO
             return true;
         }
 
-        public T GetById(int id)
+        public T GetByIdLong(long id)
+        {
+            return _context.Set<T>().Find(id);
+        }
+
+
+        public T GetByIdInt(int id)
         {
             return _context.Set<T>().Find(id);
         }

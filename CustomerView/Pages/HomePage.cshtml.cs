@@ -1,23 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using DSS_SWP.Models; // Thêm namespace để truy cập model
 using System.Collections.Generic;
+using DSS_SWP.Models;
+using Service.Services;
+using System.Threading.Tasks;
 
 namespace CustomerView.Pages
 {
     public class HomePageModel : PageModel
     {
-        public List<Product>? Products { get; set; }
+        private readonly ProductService _productService;
 
-        public void OnGet()
+        public HomePageModel(ProductService productService)
         {
-            // Logic để lấy sản phẩm từ cơ sở dữ liệu
-            Products = GetProductsFromDatabase(); // Giả sử bạn có một hàm để lấy sản phẩm
+            _productService = productService;
         }
 
-        private List<Product> GetProductsFromDatabase()
+        public List<Product> Products { get; set; }
+
+        public async Task OnGetAsync()
         {
-            // Kết nối DB và lấy danh sách sản phẩm
-            return new List<Product>(); // Trả về danh sách sản phẩm
+            Products = await _productService.GetLatestProducts();
         }
     }
 }

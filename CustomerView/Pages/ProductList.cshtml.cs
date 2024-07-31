@@ -1,30 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSS_SWP.Models;
+using Service.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CustomerView.Pages
 {
     public class ProductListModel : PageModel
     {
-        public List<Product>? Products { get; set; }
+        private readonly ProductService _productService;
 
-        public void OnGet()
+        public List<Product> Products { get; set; }
+        public List<string> Shapes { get; set; }
+        public List<string> Colors { get; set; }
+        public List<string> Clarities { get; set; }
+
+        public ProductListModel()
         {
-            // Tạo dữ liệu giả để hiển thị
-            Products = new List<Product>
-            {
-                new Product { Id = 1, ProductName = "Nhẫn Kim Cương 1", ProductCode = "NKD001", Image = "diamond1.jpg", TotalPrice = 15000000 },
-                new Product { Id = 2, ProductName = "Nhẫn Kim Cương 2", ProductCode = "NKD002", Image = "diamond2.jpg", TotalPrice = 20000000 }
-                // Thêm sản phẩm khác
-            };
+            _productService = new ProductService();
         }
 
-        public class Product
+        public async Task OnGet()
         {
-            public int Id { get; set; }
-            public string ProductName { get; set; }
-            public string ProductCode { get; set; }
-            public string Image { get; set; }
-            public decimal TotalPrice { get; set; }
+            Products = await _productService.GetList();
+            Shapes = GetShapes();
+            Colors = GetColors();
+            Clarities = GetClarities();
+        }
+
+        private List<string> GetShapes()
+        {
+            return new List<string> { "Round", "Princess", "Emerald", "Cushion", "Marquise", "Oval" };
+        }
+
+        private List<string> GetColors()
+        {
+            return new List<string> { "D", "E", "F", "G", "H", "I", "J" };
+        }
+
+        private List<string> GetClarities()
+        {
+            return new List<string> { "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2" };
         }
     }
 }

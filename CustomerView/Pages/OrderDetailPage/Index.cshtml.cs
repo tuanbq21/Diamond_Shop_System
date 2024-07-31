@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DSS_SWP.Models;
+using Service.Services;
 
 namespace CustomerView.Pages.OrderDetailPage
 {
     public class IndexModel : PageModel
     {
-        private readonly DSS_SWP.Models.DSS_CustomerContext _context;
+        private readonly OrderDetailService _context;
 
-        public IndexModel(DSS_SWP.Models.DSS_CustomerContext context)
+        public IndexModel(OrderDetailService context)
         {
             _context = context;
         }
@@ -22,9 +23,10 @@ namespace CustomerView.Pages.OrderDetailPage
 
         public async Task OnGetAsync()
         {
-            OrderDetail = await _context.OrderDetails
-                .Include(o => o.Order)
-                .Include(o => o.Product).ToListAsync();
+            OrderDetail = await _context.GetList();
+            //OrderDetail = await _context.OrderDetails
+            //    .Include(o => o.Order)
+            //    .Include(o => o.Product).ToListAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
-using DSS_SWP.Models;
-using Microsoft.EntityFrameworkCore;
+using Service.Services;
 
 namespace CustomerView
 {
@@ -12,6 +11,14 @@ namespace CustomerView
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            //Add Session
+            builder.Services.AddSession();
+
+            //DI - Dependency Injection
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<OrderDetailService>();
+            builder.Services.AddScoped<OrderService>();
 
             var app = builder.Build();
 
@@ -29,6 +36,7 @@ namespace CustomerView
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapFallbackToPage("/HomePage");
 
             app.MapRazorPages();
 

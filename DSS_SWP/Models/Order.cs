@@ -25,7 +25,9 @@ public partial class Order
 
     public int Status { get; set; }
 
+    public long? PaymentId { get; set; }
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
-    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    public virtual Payment Payment { get; set; }
 }
