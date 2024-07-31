@@ -37,7 +37,10 @@ namespace Service.Services
         {
             return  _repo.Save();
         }
-
+        public async Task<List<Product>> GetLatestProducts()
+        {
+            return await _repo.GetLatestProducts(5); 
+        }
 
     }
 }

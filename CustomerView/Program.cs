@@ -35,6 +35,7 @@ namespace CustomerView
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapFallbackToPage("/HomePage");
 
             app.MapRazorPages();
 

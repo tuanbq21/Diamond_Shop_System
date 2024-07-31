@@ -43,7 +43,7 @@ public partial class DSS_CustomerContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("data source=DESKTOP-E2A2I0N\\SQLEXPRESS;initial catalog=DSS_Customer;user id=sa;password=123456;Integrated Security=True;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer("data source=localhost;initial catalog=DSS_Customer;user id=sa;password=123;Integrated Security=True;TrustServerCertificate=True");
         base.OnConfiguring(optionsBuilder);
     }
 

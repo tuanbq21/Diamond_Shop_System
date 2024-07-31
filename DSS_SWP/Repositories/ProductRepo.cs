@@ -37,6 +37,13 @@ namespace DSS_SWP.Repositories
                        .Include(x => x.MainDiamond)
                        .FirstOrDefault(m => m.Id == id);
         }
+        public async Task<List<Product>> GetLatestProducts(int count)
+        {
+            return await _context.Products
+                .OrderByDescending(p => p.Id) 
+                .Take(count)
+                .ToListAsync();
+        }
 
         //public double? GetExDiamondPrice(long id)
         //{
