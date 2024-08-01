@@ -30,7 +30,7 @@ namespace CustomerView.Pages
 
                     TempData["Message"] = "Login Success";
                     Console.WriteLine("Login Success");
-
+                    HttpContext.Session.SetString("UserId", account.Id.ToString());
                     return RedirectToPage("/HomePage");
                 }
                 else

@@ -26,7 +26,10 @@ namespace Service.Services
         {
             return _repo.GetOrderDetailById(id);
         }
-
+        public long GetLength()
+        {
+            return _repo.GetLength();
+        }
 
         public async void Add(OrderDetail orderDetail)
         {

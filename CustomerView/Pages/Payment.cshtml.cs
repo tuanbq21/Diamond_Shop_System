@@ -10,10 +10,15 @@ namespace CustomerView.Pages
     {
         public List<ProductViewModel> Products { get; set; } = new List<ProductViewModel>();
 
-        private readonly OrderService orderService = new OrderService();
+        private readonly OrderService _orderService = new OrderService();
 
-        private readonly OrderDetailService orderDetailService = new OrderDetailService();
+        private readonly OrderDetailService _orderDetailService = new OrderDetailService();
 
+        public PaymentModel(OrderService orderService, OrderDetailService orderDetailService)
+        {
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
+        }
         [BindProperty]
         public Order Order { get; set; } = new Order()!;
 
@@ -32,18 +37,28 @@ namespace CustomerView.Pages
             });
         }
 
-    //public async Task<IActionResult> OnPost()
-    //    {
-    //        try { 
-    //            long customerId = long.Parse(HttpContext.Session.GetString("UserId"));
-                
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            TempData["Message"] = ex.Message;
-    //            return Page();
-    //        }
-    //    }
+    public async Task<IActionResult> OnPost()
+        {
+            try { 
+                long customerId = long.Parse(HttpContext.Session.GetString("UserId"));
+                Order.OrderDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                Order.PaymentId = 1;
+                Order.CustomerId = customerId;
+                Order.Status = 1;
+
+                _orderService.Add(Order);
+
+                long orderId = _orderService.GetLength();
+                OrderDetail.OrderId = orderId;
+                _orderDetailService.Add(OrderDetail);
+                return RedirectToPage("./HomePage");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = ex.Message;
+                return Page();
+            }
+        }
     }
 
     public class ProductViewModel

@@ -24,6 +24,12 @@ namespace DSS_SWP.Repositories
                                  .ToListAsync();
         }
 
+        public long GetLength()
+        {
+            return _context.OrderDetails
+                                 .Count();
+        }
+
 
         public OrderDetail? GetOrderDetailById(long id)
         {
